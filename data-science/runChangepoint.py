@@ -110,15 +110,14 @@ if __name__=='__main__':
     #Loop through the directory and load the data
     machines = os.listdir(DATAPATH)
     for machine in tqdm(machines):
-        if machine == 'machine_5.csv':
-            data = pd.read_csv(DATAPATH+machine)
-            min_fault_time, min_fault_index = findFaultTimeForAMachine(data, model, machine)
-            min_fault_times.append(min_fault_time)
-            min_fault_indexes.append(min_fault_index)
+        data = pd.read_csv(DATAPATH+machine)
+        min_fault_time, min_fault_index = findFaultTimeForAMachine(data, model, machine)
+        min_fault_times.append(min_fault_time)
+        min_fault_indexes.append(min_fault_index)
     
     # Save the model to the path
     #save_model(model)
 
-    result = pd.DataFrame({"machines": ['machine_5'], "fault_times": min_fault_times, "fault_indexes": min_fault_indexes})
+    result = pd.DataFrame({"machines": machines, "fault_times": min_fault_times, "fault_indexes": min_fault_indexes})
     result.to_csv(RESULTPATH+'results.csv', index=False)
 
